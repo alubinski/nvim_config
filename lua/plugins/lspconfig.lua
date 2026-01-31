@@ -18,7 +18,13 @@ local config = function()
 	require("lspconfig").clangd.setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
-		init_options = { fallbackFlags = { "-std=c++20" } },
+		cmd = {
+			"clangd",
+			"--header-insertion=never", -- Optional: prevents annoying auto-includes
+			"--background-index",
+			"--clang-tidy",
+		},
+		init_options = { fallbackFlags = { "-std=c++20" }, compilationDatabasePath = "build" },
 	})
 	require("lspconfig").texlab.setup({ on_attach = on_attach, capabilities = capabilities })
 	require("lspconfig").marksman.setup({ on_attach = on_attach, capabilities = capabilities })
