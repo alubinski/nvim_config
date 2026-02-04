@@ -1,5 +1,5 @@
 local config = function()
-	local on_attach = function(_, _)
+	local on_attach = function(client, bufnr)
 		local keyset = vim.keymap.set
 		keyset("n", "<leader>rn", vim.lsp.buf.rename, {}) -- rename
 		keyset("n", "<leader>ca", vim.lsp.buf.code_action, {}) -- code action
@@ -8,6 +8,9 @@ local config = function()
 		keyset("n", "gi", vim.lsp.buf.implementation, {}) -- global implementation
 		keyset("n", "gr", require("telescope.builtin").lsp_references, {}) -- global references
 		keyset("n", "K", vim.lsp.buf.hover, {}) -- global implementation
+		if client.server_capabilities.inlayHintProvider then
+			vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+		end
 	end
 
 	local capabilities = require("blink.cmp").get_lsp_capabilities()
@@ -25,6 +28,16 @@ local config = function()
 			"--clang-tidy",
 		},
 		init_options = { fallbackFlags = { "-std=c++20" }, compilationDatabasePath = "build" },
+		settings = {
+			clangd = {
+				InlayHints = {
+					Designators = true,
+					Enabled = true,
+					ParameterNames = true,
+					DeducedTypes = true, -- This is the one for 'auto'
+				},
+			},
+		},
 	})
 	require("lspconfig").texlab.setup({ on_attach = on_attach, capabilities = capabilities })
 	require("lspconfig").marksman.setup({ on_attach = on_attach, capabilities = capabilities })
