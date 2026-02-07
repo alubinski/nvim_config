@@ -26,6 +26,7 @@ local config = function()
 			"--header-insertion=never", -- Optional: prevents annoying auto-includes
 			"--background-index",
 			"--clang-tidy",
+			"--compile-commands-dir=build",
 		},
 		init_options = { fallbackFlags = { "-std=c++20" }, compilationDatabasePath = "build" },
 		settings = {

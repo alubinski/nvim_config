@@ -22,6 +22,7 @@ return {
 			-- C++ setup
 			cpp = { "clang-format" },
 			c = { "clang-format" },
+			cmake = { "cmake_format" },
 			-- Use a sub-list to run only the first available formatter
 			javascript = { "prettierd", "prettier", stop_after_first = true },
 		},

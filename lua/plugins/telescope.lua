@@ -3,10 +3,7 @@ local config = function()
 	telescope.setup({
 		defaults = {
 			file_ignore_patterns = {
-				"build/",
-				"out/",
 				"node_modules/",
-				".git/",
 				"%.o", -- Ignore object files
 				"%.a", -- Ignore static libraries
 				"%.out", -- Ignore executables
